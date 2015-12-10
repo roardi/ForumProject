@@ -11,10 +11,11 @@ class Comment extends Model
 {
     //
 	protected $table='komentarforum';
+	protected $fillable=['isi','tanggal'];
 	protected $primaryKey='kdKomentar';
 	public function threadforum()
 	{
-		return $this->belongsTo('App\Threadforum','kdThread')->select(array('kdThread','judul','isi'));
+		return $this->belongsTo('App\Threadforum','kdThread')->select(array('kdThread','kdAuthor','judul','isi'));
 	}
 	public function lecturer()
 	{

@@ -41,12 +41,28 @@ use App\Comment;
                 <a href="{{ url('threadforum')}}" class="btn btn-primary">Back</a>
             </div>
         </div>
-		<div><a href="{{route('threadforum.comment.index',$thread->kdThread)}}" class="btn btn-warning">Comment</a></div>
-		<?php echo $komen=$thread->student->nama;?>
-		<?php /*@foreach ($komen as $comment)
-		<tr>
-             <td>{{ $comment->isi }}</td>
-		</tr>
-		@endforeach*/?>
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10" align="right">
+				<a href="{{route('threadforum.comment.show',$thread->kdThread)}}" class="btn btn-warning">Comment</a>
+			</div>
+		</div>
+		<?php 
+			$komen=$thread->comment;
+			foreach ($komen as $kom){
+				if ($kom->student==null){
+					$nama=$kom->lecturer->nama;
+				}
+				else
+					$nama=$kom->student->nama;
+				echo '<div class="form-group">
+					<label for="isi" class="col-sm-2 control-label"></label>
+					<div class="col-sm-10">
+					<input type="text" class="form-control" id="isi" placeholder=';
+					echo $kom->isi;
+					echo '>
+				</div>
+        </div>';
+		}
+		?>
     </form>
 @stop

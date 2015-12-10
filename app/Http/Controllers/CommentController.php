@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
+use Request;
 use App\Comment;
 use App\Student;
 use App\Threadforum;
@@ -16,14 +15,12 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($kdThread)
     {
         //
-		echo "ini comment";
-		$comment=Comment::with('threadforum','student','lecturer')->get();
-		//$threadforum=Threadforum::all();
-        //return view('threadforum.comment.index',compact('comment'));
-		return $comment->toJson();
+		$comment=Comment::where('kdThread','=',$kdThread)->with('threadforum.student','threadforum.lecturer','student','lecturer')->get();
+        return view('threadforum.comment.index',compact('comment'));
+		// return $comment->toJson();
     }
 
     /**
@@ -34,6 +31,7 @@ class CommentController extends Controller
     public function create()
     {
         //
+		return view('threadforum.comment.index');
     }
 
     /**
@@ -45,6 +43,9 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         //
+		$comment=Request::all();
+		Comment::create($comment);
+		return redirect('threadforum.comment');
     }
 
     /**
@@ -53,9 +54,13 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($kdThread)
     {
         //
+		$comment=Comment::find($kdThread);
+		//$threadforum=Threadforum::all();
+        //return view('threadforum.comment.index',compact('comment'));
+		return $comment->toJson();
     }
 
     /**

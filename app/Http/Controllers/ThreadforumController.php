@@ -62,8 +62,8 @@ class ThreadForumController extends Controller
     {
 		//
 		$thread=Threadforum::with('student','lecturer','comment.student','comment.lecturer')->find($kdThread);
-		//return view('threadforum.show',compact('thread'));
-		return $thread->toJson();
+		return view('threadforum.show',compact('thread'));
+		//return $thread->toJson();
     }
 
     /**
