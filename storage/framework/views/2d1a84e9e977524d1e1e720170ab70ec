@@ -1,0 +1,46 @@
+<?php
+use App\Student;
+use App\Lecturer;
+?>
+
+<?php $__env->startSection('content'); ?>
+
+    <h1>Update Thread</h1>
+    <?php echo Form::model($threadforum,['method' => 'PATCH','route'=>['threadforum.update',$threadforum->kdThread]]); ?>
+
+    <?php 
+	$user=$threadforum->kdAuthor;
+	$author=Lecturer::find($user);
+	if ($author==null){
+		$author=Student::find($user);
+	}
+	//echo $author['nama'];
+	?>
+	<div class="form-group">
+        <?php echo Form::label('Author', 'Author:'); ?>
+
+        <?php echo Form::label($author["nama"],null,['class'=>'form-control']); ?>
+
+    </div>
+	<div class="form-group">
+        <?php echo Form::label('Subject', 'Subject:'); ?>
+
+        <?php echo Form::text('judul',null,['class'=>'form-control']); ?>
+
+    </div>
+    
+    <div class="form-group">
+        <?php echo Form::label('Detail', 'Detail:'); ?>
+
+        <?php echo Form::textarea('isi',null,['class'=>'form-control']); ?>
+
+    </div>
+    
+    <div class="form-group">
+        <?php echo Form::submit('Update Thread', ['class' => 'btn btn-primary']); ?>
+
+    </div>
+    <?php echo Form::close(); ?>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout.template', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
